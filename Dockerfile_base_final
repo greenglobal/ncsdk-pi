@@ -1,4 +1,4 @@
-from ncsdk/base:tensorflow
+from ncsdk-ts
 
 COPY ./ncsdk ./ncsdk
 
