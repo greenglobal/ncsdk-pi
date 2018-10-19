@@ -1,0 +1,31 @@
+FROM resin/rpi-raspbian
+
+# Add sources.list
+# Bakup original sources.list
+RUN mv /etc/apt/sources.list /etc/apt/sources.list_ && \
+    mv /etc/apt/trusted.gpg /etc/apt/trusted.gpg_
+
+COPY ./sources.list /etc/apt
+COPY ./trusted.gpg /etc/apt
+
+# Install necessary packages for the installer
+RUN apt-get update && apt-get install -y \
+    apt-utils \
+    lsb-release \
+    build-essential \
+    sed \
+    sudo \
+    tar \
+    udev \
+    wget \
+    libusb-1.0-0-dev \
+    python3-dev \
+    libatlas-base-dev \
+    apt-transport-https \
+    usbutils \
+    && apt-get clean
+
+# Run the installer
+RUN wget https://bootstrap.pypa.io/get-pip.py
+RUN python2 get-pip.py && \
+    python3 get-pip.py

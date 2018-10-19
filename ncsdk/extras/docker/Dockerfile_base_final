@@ -1,0 +1,8 @@
+from ncsdk/base:tensorflow
+
+COPY ./ncsdk ncsdk/
+
+RUN make install
+WORKDIR "api/src"
+RUN sudo make clean && sudo make get_mvcmd && sudo make basicinstall NO_BOOT=yes NO_RESET=yes && sudo make pythoninstall
+WORKDIR "../../"
